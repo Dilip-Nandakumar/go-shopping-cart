@@ -1,7 +1,7 @@
 FROM alpine:latest
 
-ENV name=go-vanilla-bootstrap
+ENV name=go-shopping-cart
 
-COPY ./out/build/go-vanilla-bootstrap-linux /${name}
+COPY ./out/build/go-shopping-cart-linux /${name}
 
-CMD [ "/go-vanilla-bootstrap" ]
+CMD [ "/go-shopping-cart" ]

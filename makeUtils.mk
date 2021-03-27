@@ -1,4 +1,4 @@
-name := go-vanilla-bootstrap
+name := go-shopping-cart
 build_out := out/build
 bin := $(build_out)/$(name)
 linux_bin := $(build_out)/$(name)-linux

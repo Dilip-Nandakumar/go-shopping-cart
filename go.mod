@@ -1,9 +1,9 @@
-module github.com/Dilip-Nandakumar/go-vanilla-bootstrap
+module github.com/Dilip-Nandakumar/go-shopping-cart
 
 go 1.15
 
 require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/shopspring/decimal v1.2.0
 	github.com/sirupsen/logrus v1.7.0
 	github.com/stretchr/testify v1.6.1
 	golang.org/x/sys v0.0.0-20210113181707-4bcb84eeeb78 // indirect

@@ -1,1 +1,1 @@
-# go-vanilla-bootstrap
+# go-shopping-cart
