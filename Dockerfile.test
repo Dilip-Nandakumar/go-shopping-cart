@@ -1,0 +1,9 @@
+FROM golang:1.15-alpine
+
+WORKDIR src
+
+RUN apk add --update alpine-sdk
+
+COPY . .
+
+CMD [ "make", "test"]

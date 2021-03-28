@@ -4,6 +4,8 @@ bin := $(build_out)/$(name)
 linux_bin := $(build_out)/$(name)-linux
 main_dir := ./
 main_dir_files := ./...
+test_docker_image_name := go-shopping-cart-test
+test_docker_file := ./Dockerfile.test
 
 define build.compile_local
 	go build -o $(bin) $(main_dir)
@@ -30,6 +32,18 @@ define fmt.fix
 	gofmt -d -l -w $(main_dir)
 endef
 
-define docker.build_image
+define docker.build_docker
 	docker build . -t $(name)
+endef
+
+define docker.run_docker
+	docker run $(name)
+endef
+
+define docker.build_docker_test
+	docker build -t $(test_docker_image_name) -f ${test_docker_file} .
+ endef
+
+define docker.run_docker_test
+	docker run $(test_docker_image_name)
 endef
