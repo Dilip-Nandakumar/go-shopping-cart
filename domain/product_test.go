@@ -9,8 +9,9 @@ import (
 
 func TestNewProduct(t *testing.T) {
 	productName := "Dove Soap"
-	product := domain.NewProduct(productName, 39.99)
+	product := domain.NewProduct(1, productName, 39.99)
 
-	assert.Equal(t, productName, product.Name)
+	assert.Equal(t, 1, product.GetID())
+	assert.Equal(t, productName, product.GetName())
 	assert.Equal(t, "39.99", product.GetPriceForDisplay())
 }

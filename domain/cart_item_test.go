@@ -10,7 +10,7 @@ import (
 
 func TestNewCartItem(t *testing.T) {
 	productName := "Dove Soap"
-	product := domain.NewProduct(productName, 39.99)
+	product := domain.NewProduct(1, productName, 39.99)
 	var quantity int64 = 1
 
 	cartItem := domain.NewCartItem(product, 1)
@@ -21,7 +21,7 @@ func TestNewCartItem(t *testing.T) {
 
 func TestPrice(t *testing.T) {
 	productName := "Dove Soap"
-	product := domain.NewProduct(productName, 39.99)
+	product := domain.NewProduct(1, productName, 39.99)
 
 	cartItem := domain.NewCartItem(product, 1)
 
@@ -31,10 +31,32 @@ func TestPrice(t *testing.T) {
 
 func TestPriceForMultipeQuantities(t *testing.T) {
 	productName := "Dove Soap"
-	product := domain.NewProduct(productName, 39.99)
+	product := domain.NewProduct(1, productName, 39.99)
 
 	cartItem := domain.NewCartItem(product, 5)
 
 	assert.Equal(t, decimal.NewFromFloat(199.95), cartItem.GetPrice())
 	assert.Equal(t, "199.95", cartItem.GetPriceForDisplay())
+}
+
+func TestAddQuantity(t *testing.T) {
+	productName := "Dove Soap"
+	product := domain.NewProduct(1, productName, 39.99)
+
+	cartItem := domain.NewCartItem(product, 5)
+	err := cartItem.AddQuantity(3)
+
+	assert.Equal(t, int64(8), cartItem.GetQuantity())
+	assert.Equal(t, nil, err)
+}
+
+func TestAddQuantityForInvalidInput(t *testing.T) {
+	productName := "Dove Soap"
+	product := domain.NewProduct(1, productName, 39.99)
+
+	cartItem := domain.NewCartItem(product, 5)
+	err := cartItem.AddQuantity(-3)
+
+	assert.Equal(t, int64(5), cartItem.GetQuantity())
+	assert.Equal(t, "Quantity to add cannot be less than zero", err.Error())
 }

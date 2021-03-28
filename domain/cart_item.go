@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"errors"
+
 	"github.com/shopspring/decimal"
 )
 
@@ -27,4 +29,13 @@ func (cartItem *cartItem) GetProduct() *product {
 
 func (cartItem *cartItem) GetQuantity() int64 {
 	return cartItem.quantity
+}
+
+func (cartItem *cartItem) AddQuantity(quantity int64) error {
+	if quantity < 0 {
+		return errors.New("Quantity to add cannot be less than zero")
+	}
+
+	cartItem.quantity += quantity
+	return nil
 }

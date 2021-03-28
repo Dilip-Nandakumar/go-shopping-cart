@@ -15,9 +15,10 @@ func main() {
 
 	shoppingCart := domain.NewShoppingCart()
 
-	newProduct := domain.NewProduct("Dove Soaps", 39.99)
+	newProduct := domain.NewProduct(1, "Dove Soaps", 39.99)
 
 	shoppingCart.AddCartItem(newProduct, 5)
+	shoppingCart.AddCartItem(newProduct, 3)
 
 	fmt.Println("Shopping Cart:")
 	fmt.Println(shoppingCart)
