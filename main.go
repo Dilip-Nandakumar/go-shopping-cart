@@ -13,12 +13,13 @@ func main() {
 
 	log.Info("Main method is invoked")
 
-	shoppingCart := domain.NewShoppingCart()
+	shoppingCart := domain.NewShoppingCart(12.5)
 
-	newProduct := domain.NewProduct(1, "Dove Soaps", 39.99)
+	product1 := domain.NewProduct(1, "Dove Soaps", 39.99)
+	product2 := domain.NewProduct(2, "Axe Deos", 99.99)
 
-	shoppingCart.AddCartItem(newProduct, 5)
-	shoppingCart.AddCartItem(newProduct, 3)
+	shoppingCart.AddCartItem(product1, 2)
+	shoppingCart.AddCartItem(product2, 2)
 
 	fmt.Println("Shopping Cart:")
 	fmt.Println(shoppingCart)

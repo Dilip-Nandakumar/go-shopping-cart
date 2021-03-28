@@ -8,13 +8,13 @@ import (
 )
 
 func TestNewShoppingCart(t *testing.T) {
-	shoppingCart := domain.NewShoppingCart()
+	shoppingCart := domain.NewShoppingCart(0.0)
 
 	assert.Equal(t, len(shoppingCart.GetItems()), 0)
 }
 
 func TestAddCartItem(t *testing.T) {
-	shoppingCart := domain.NewShoppingCart()
+	shoppingCart := domain.NewShoppingCart(0.0)
 
 	newProduct := domain.NewProduct(1, "Dove Soaps", 39.99)
 	var quantity int64 = 1
@@ -31,7 +31,7 @@ func TestAddCartItem(t *testing.T) {
 }
 
 func TestAddCartItemForMultipleQuantities(t *testing.T) {
-	shoppingCart := domain.NewShoppingCart()
+	shoppingCart := domain.NewShoppingCart(0.0)
 
 	newProduct := domain.NewProduct(1, "Dove Soaps", 39.99)
 	var quantity int64 = 5
@@ -48,7 +48,7 @@ func TestAddCartItemForMultipleQuantities(t *testing.T) {
 }
 
 func TestAddCartItemForMultipleOrdersOfSameProduct(t *testing.T) {
-	shoppingCart := domain.NewShoppingCart()
+	shoppingCart := domain.NewShoppingCart(0.0)
 
 	newProduct := domain.NewProduct(1, "Dove Soaps", 39.99)
 
@@ -66,7 +66,7 @@ func TestAddCartItemForMultipleOrdersOfSameProduct(t *testing.T) {
 }
 
 func TestAddCartItemForInvalidInput(t *testing.T) {
-	shoppingCart := domain.NewShoppingCart()
+	shoppingCart := domain.NewShoppingCart(0.0)
 
 	newProduct := domain.NewProduct(1, "Dove Soaps", 39.99)
 
@@ -80,7 +80,7 @@ func TestAddCartItemForInvalidInput(t *testing.T) {
 }
 
 func TestTotalPriceForRoundHalfDown(t *testing.T) {
-	shoppingCart := domain.NewShoppingCart()
+	shoppingCart := domain.NewShoppingCart(0.0)
 
 	newProduct := domain.NewProduct(1, "Dove Soaps", 0.5649)
 
@@ -90,7 +90,7 @@ func TestTotalPriceForRoundHalfDown(t *testing.T) {
 }
 
 func TestTotalPriceForRoundHalfUp(t *testing.T) {
-	shoppingCart := domain.NewShoppingCart()
+	shoppingCart := domain.NewShoppingCart(0.0)
 
 	newProduct := domain.NewProduct(1, "Dove Soaps", 0.565)
 
@@ -99,8 +99,20 @@ func TestTotalPriceForRoundHalfUp(t *testing.T) {
 	assert.Equal(t, "0.57", shoppingCart.GetTotalPriceForDisplay())
 }
 
+func TestTotalPriceWithSalesTax(t *testing.T) {
+	shoppingCart := domain.NewShoppingCart(12.5)
+
+	product1 := domain.NewProduct(1, "Dove Soaps", 39.99)
+	product2 := domain.NewProduct(2, "Axe Deos", 99.99)
+
+	shoppingCart.AddCartItem(product1, 2)
+	shoppingCart.AddCartItem(product2, 2)
+
+	assert.Equal(t, "314.96", shoppingCart.GetTotalPriceForDisplay())
+}
+
 func TestStringOutput(t *testing.T) {
-	shoppingCart := domain.NewShoppingCart()
+	shoppingCart := domain.NewShoppingCart(0.0)
 
 	newProduct := domain.NewProduct(1, "Dove Soaps", 39.99)
 

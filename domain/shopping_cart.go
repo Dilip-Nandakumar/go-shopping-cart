@@ -10,10 +10,11 @@ import (
 
 type shoppingCart struct {
 	items      []*cartItem
+	salesTaxInPercentage decimal.Decimal
 }
 
-func NewShoppingCart() *shoppingCart {
-	return &shoppingCart{[]*cartItem{}}
+func NewShoppingCart(salesTaxInPercentage float64) *shoppingCart {
+	return &shoppingCart{[]*cartItem{}, decimal.NewFromFloat(salesTaxInPercentage)}
 }
 
 func (shoppingCart *shoppingCart) AddCartItem(product *product, quantity int64) error {
@@ -37,11 +38,14 @@ func (shoppingCart *shoppingCart) GetItems() []*cartItem {
 }
 
 func (shoppingCart *shoppingCart) GetTotalPrice() decimal.Decimal {
-	totalPrice := decimal.NewFromInt(0)
+	basePrice := decimal.NewFromInt(0)
 
 	for _, item := range shoppingCart.items {
-		totalPrice = totalPrice.Add(item.GetPrice())
+		basePrice = basePrice.Add(item.GetPrice())
 	}
+
+	tax := basePrice.Mul(shoppingCart.salesTaxInPercentage).Div(decimal.NewFromInt(100))
+	totalPrice := basePrice.Add(tax)
 
 	return totalPrice.Round(2)
 }
